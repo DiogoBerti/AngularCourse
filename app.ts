@@ -1,23 +1,48 @@
-let message: string = "Help Me Your Fucker";
+class Spacecraft{
 
-console.log(message);
-// As variaveis tem tipagem no typescript...
-let episode: number = 4;
+	// Construtor reduzido (enxuto)
+	// define que a classe possui um atributo propulsor
+	// que recebe uma string...
+	constructor(public propulsor: string){}
 
-console.log("This is episode: " + episode);
-episode = episode + 1;
-console.log("Next episode: " + episode);
-
-// Essa variavel recebe como tipo o "any", ou seja, qqr valor pode ser setado.
-let favoriteDroid;
-favoriteDroid = "BB-8";
-console.log(favoriteDroid);
-
-
-let isEnoughToBeatMF = function(parsecs: number): boolean{
-	return parsecs < 12;
+	// Atributos de classe não precisam da keyword function...
+	jumpIntoHyperSpace(){
+		console.log(`Entering Hyperspace with ${this.propulsor}`);
+	};
 };
 
-let distance = 11;
+let ship = new Spacecraft('Hyperdrive');
+ship.jumpIntoHyperSpace();
 
-console.log(`Is ${distance} parsecs enough to beat millenium Falcon? ${isEnoughToBeatMF(distance) ? 'Yes': 'No'}`);
+
+class MilleniumFalcion extends Spacecraft implements Containership{
+	
+	cargoContainers: number;
+
+	constructor(){
+		super('Hyperdrive');
+		this.cargoContainers = 4;
+	};
+
+	jumpIntoHyperSpace(){
+		if(Math.random() >= 0.5){
+			super.jumpIntoHyperSpace();
+		}else{
+			console.log(`Failed!`);
+		};
+	};
+};
+
+let millenium = new MilleniumFalcion();
+millenium.jumpIntoHyperSpace();
+
+
+interface Containership{
+
+	cargoContainers: number;
+
+};
+
+let goodForTheJob = (ship: Containership) => ship.cargoContainers > 2;
+
+console.log(`Is Falcon good for the job? ${goodForTheJob(millenium)}`);
